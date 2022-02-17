@@ -15,9 +15,9 @@ type historyService struct {
 }
 
 var Module = fx.Module("history",
-	fx.Decorate(func(logger *zap.Logger) *zap.Logger {
-		return logger.With(zap.String("service-name", "history"))
-	}),
+	//fx.Decorate(func(logger *zap.Logger) *zap.Logger {
+	//	return logger.With(zap.String("service-name", "history"))
+	//}),
 	fx.Provide(NewService),
 	fx.Decorate(func(dummy service.Service, svc *historyService) service.Service {return svc}),
 	fx.Invoke(lifecycleHooks),
