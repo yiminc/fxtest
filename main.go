@@ -14,9 +14,6 @@ import (
 
 var ServiceModule = fx.Module("server",
 	log.Module,
-	fx.Decorate(func(logger *zap.Logger) *zap.Logger {
-		return logger.With(zap.String("test", "true"))
-	}),
 	cache.Module,
 	usercache.Module,
 	history.Module,
@@ -25,10 +22,15 @@ var ServiceModule = fx.Module("server",
 
 var TestModule = fx.Options(
 	ServiceModule,
+	fx.Decorate(func(logger *zap.Logger) *zap.Logger {
+		return logger.With(zap.String("test", "true"))
+	}),
 )
 
 func main() {
-	app := fx.New(TestModule)
+	app := fx.New(
+		TestModule,
+		fx.NopLogger,
+	)
 	app.Start(context.Background())
-	//...
 }
