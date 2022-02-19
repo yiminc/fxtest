@@ -11,7 +11,7 @@ type (
 
 var Module = fx.Options(
 	fx.Provide(NewCache),
-	fx.Decorate(func(cc cache.Cache, uc *cacheImpl) cache.Cache {
+	fx.Decorate(func(uc *cacheImpl) cache.Cache {
 		return uc
 	}),
 )
